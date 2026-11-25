@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Start">
+<meta name="theme-color" content="#d9a092">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="apple-touch-icon.png">
+<title>Rob's Start Page</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Nunito:wght@200;300;600;700;800&display=swap" rel="stylesheet">
+<style>
+/*
+VOICE: calm and grown-up; a quiet home screen.
+IDEA: dusk contour map, like the wallpaper beside it; links are frosted-glass tiles.
+PICTURE: two grouped rows of tiles over faint contour lines.
+COLOUR and TYPE: peach, rose, lavender ground; tiles in softened but distinct hues. Nunito, thin clock.
+LAYOUT: date, thin clock, then Community and Daily groups; up to 5 across.
+*/
+:root{color-scheme:light dark;
+  --peach:light-dark(#e8ab8e,#8d5a55);--rose:light-dark(#c38f9d,#634560);--lav:light-dark(#8f78a8,#372b4f);
+  --line:light-dark(rgba(120,55,60,.16),rgba(255,210,200,.09));--ink:#fff}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;color:var(--ink);font:16px/1.4 Nunito,ui-rounded,system-ui,sans-serif;overflow-x:clip;min-height:100vh;
+  background:radial-gradient(110% 70% at 0% 0%,var(--peach),transparent 62%),
+             radial-gradient(90% 80% at 100% 100%,var(--lav),transparent 66%),
+             linear-gradient(165deg,var(--peach),var(--rose) 48%,var(--lav));
+}
+html{background:#c38f9d}
+.contours{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.contours path{fill:none;stroke:var(--line);stroke-width:1.2}
+main{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:calc(env(safe-area-inset-top) + clamp(32px,7vw,72px)) max(5vw,20px,env(safe-area-inset-right)) calc(env(safe-area-inset-bottom) + 56px) max(5vw,20px,env(safe-area-inset-left))}
+header{margin-bottom:clamp(30px,6vw,52px);text-shadow:0 1px 14px rgba(70,25,40,.18)}
+.date{font-size:15px;font-weight:600;opacity:.85}
+.time{font-size:clamp(68px,15vw,112px);font-weight:200;line-height:1;letter-spacing:-.03em;margin-top:4px;font-variant-numeric:tabular-nums}
+section+section{margin-top:clamp(28px,5vw,40px)}
+h2{font-size:14px;font-weight:700;margin:0 0 16px 4px;opacity:.7}
+.grid{list-style:none;margin:0;padding:0;display:grid;gap:22px 12px;grid-template-columns:repeat(5,minmax(0,1fr))}
+@media(max-width:440px){.grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:20px 8px}}
+.tile{display:flex;flex-direction:column;align-items:center;gap:9px;color:var(--ink);text-decoration:none;
+  -webkit-tap-highlight-color:transparent;outline:none;border-radius:18px;padding:4px}
+.tile:focus-visible{box-shadow:0 0 0 2px rgba(255,255,255,.75)}
+.icon{width:clamp(58px,15vw,72px);aspect-ratio:1;border-radius:26%;display:grid;place-items:center;position:relative;
+  background:linear-gradient(160deg,color-mix(in srgb,var(--c) 62%,rgba(255,255,255,.35)),color-mix(in srgb,var(--c) 70%,transparent));
+  -webkit-backdrop-filter:blur(14px) saturate(1.2);backdrop-filter:blur(14px) saturate(1.2);
+  border:1px solid rgba(255,255,255,.28);
+  box-shadow:0 8px 20px -10px rgba(50,20,40,.45),inset 0 1px 0 rgba(255,255,255,.25);
+  transition:transform .18s ease}
+.icon.stripe{background:repeating-linear-gradient(135deg,rgba(255,255,255,.06) 0 5px,transparent 5px 12px),
+  linear-gradient(160deg,rgba(122,52,60,.88),rgba(82,28,34,.9))}
+.icon.navy{background:radial-gradient(120% 90% at 30% 15%,rgba(60,105,180,.85),rgba(32,58,110,.85) 50%,rgba(27,36,54,.9))}
+.icon svg{width:50%;height:50%;stroke:var(--g,#fff);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.icon svg .f{fill:var(--g,#fff);stroke:none}
+.tile:active .icon{transform:scale(.92)}
+@media(hover:hover){.tile:hover .icon{transform:translateY(-2px)}}
+.name{font-size:13.5px;font-weight:600;text-align:center;line-height:1.2;text-shadow:0 1px 6px rgba(60,20,35,.35)}
+@media(prefers-reduced-motion:reduce){.icon{transition:none}}
+</style>
+</head>
+<body>
+<svg class="contours" viewBox="0 0 400 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <path d="M-20 120C60 60 140 170 230 110S360 40 430 90"/>
+  <path d="M-20 160C70 100 150 210 240 150S370 80 430 130"/>
+  <path d="M-20 330C40 280 120 360 180 300S300 220 330 300 300 420 430 380"/>
+  <path d="M-20 375C50 325 125 405 195 345S310 275 345 345 320 460 430 425"/>
+  <path d="M250 520c60-50 140-20 150 40s-40 110-100 100-110-90-50-140z"/>
+  <path d="M265 535c45-35 105-15 113 30s-30 82-75 75-83-68-38-105z"/>
+  <path d="M-20 620C80 560 120 700 210 660S320 580 430 640"/>
+  <path d="M-20 680C70 620 130 760 220 720S330 640 430 700"/>
+</svg>
+<main>
+  <header>
+    <div class="date" id="date">&nbsp;</div>
+    <div class="time" id="time">--:--</div>
+  </header>
+  <section><h2>Community</h2><ul class="grid" id="community"></ul></section>
+  <section><h2>Daily</h2><ul class="grid" id="daily"></ul></section>
+</main>
+<script>
+{
+  const mono = (t, font, size, extra='') =>
+    `<text class="f" x="12" y="${font==='serif'?18:16.2}" text-anchor="middle" font-family="${font==='serif'?'Cinzel,Georgia,serif':'Nunito,system-ui,sans-serif'}" font-weight="${font==='serif'?700:800}" font-size="${size}">${t}</text>${extra}`;
+  const rules = '<path d="M3.5 21.5h17" stroke-width="1"/><path d="M3.5 2.5h17" stroke-width="1"/>';
+  const ICONS = {
+    chat:'<path d="M5 6h14a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-7l-5 4v-4H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/><circle class="f" cx="8.5" cy="11.5" r="1.1"/><circle class="f" cx="12" cy="11.5" r="1.1"/><circle class="f" cx="15.5" cy="11.5" r="1.1"/>',
+    pad:'<path d="M7 8h10a5 5 0 0 1 4.8 6.4l-.9 3a2.4 2.4 0 0 1-4.2.7L15 16H9l-1.7 2.1a2.4 2.4 0 0 1-4.2-.7l-.9-3A5 5 0 0 1 7 8z"/><path d="M7 11v3M5.5 12.5h3"/><circle class="f" cx="16" cy="11.3" r="1"/><circle class="f" cx="18" cy="13.5" r="1"/>',
+    pb: mono('P&amp;B','sans',11.5,'<path d="M5 20.2q7 2.2 14 0" stroke-width="1.3"/>'),
+    shed: mono('S','serif',21,rules),
+    terrace: mono('T','serif',21,rules),
+    news:'<rect x="3" y="4" width="15" height="16" rx="2"/><path d="M18 8h3v10a2 2 0 0 1-2 2"/><path d="M6.5 8h8M6.5 12h8M6.5 16h5"/>',
+    weather:'<circle cx="9" cy="8" r="3"/><path d="M9 2.5v1M3.5 8h1M5 4l.7.7M13 4l-.7.7"/><path d="M8 19h10a3.5 3.5 0 0 0 .3-7 5 5 0 0 0-9.6 1.2A3 3 0 0 0 8 19z"/>',
+    debrid:'<path d="M12 3v11M7.5 9.5 12 14l4.5-4.5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/>',
+    tv:'<rect x="3" y="6" width="18" height="12" rx="2"/><path d="M8 21h8M9 3l3 3 3-3"/><circle cx="12" cy="12" r="3"/>'
+  };
+  const GROUPS = {
+    community: [
+      {n:'EtcetEra', u:'https://www.resetera.com/forums/etcetera-forum.9/', c:'#7b5bb4', i:'chat'},
+      {n:'Gaming', u:'https://www.resetera.com/forums/gaming-forum.7/', c:'#5f4aa6', i:'pad'},
+      {n:'Pie & Bovril', u:'https://www.pieandbovril.com/forum/index.php?/forum/50-the-general-nonsense-forum/', c:'#24468c', x:'navy', i:'pb'},
+      {n:'The Shed', u:'https://www.hmfckickback.co.uk/index.php?/forum/2-the-shed/', c:'#6e2a31', x:'stripe', g:'#f3e6cf', i:'shed'},
+      {n:'The Terrace', u:'https://www.hmfckickback.co.uk/index.php?/forum/1-the-terrace/', c:'#6e2a31', x:'stripe', g:'#f3e6cf', i:'terrace'}
+    ],
+    daily: [
+      {n:'BBC News', u:'https://www.bbc.co.uk/news', c:'#b0383d', i:'news'},
+      {n:'XCWeather', u:'https://www.xcweather.co.uk/forecast/here', c:'#3a6fc0', i:'weather'},
+      {n:'Football on TV', u:'https://www.live-footballontv.com/', c:'#2e8158', i:'tv'},
+      {n:'Debrid', u:'https://debridmediamanager.com/', c:'#3a4658', i:'debrid'}
+    ]
+  };
+  const esc = t => String(t).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  for (const [id, links] of Object.entries(GROUPS)) {
+    document.getElementById(id).innerHTML = links.map(l =>
+      `<li><a class="tile" href="${esc(l.u)}"><span class="icon ${l.x||''}" style="--c:${l.c}${l.g?';--g:'+l.g:''}"><svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[l.i]}</svg></span><span class="name">${esc(l.n)}</span></a></li>`
+    ).join('');
+  }
+  const timeEl = document.getElementById('time'), dateEl = document.getElementById('date');
+  const tick = () => {
+    const d = new Date();
+    timeEl.textContent = d.toLocaleTimeString('en-GB', {hour:'2-digit', minute:'2-digit'});
+    const h = d.getHours();
+    const part = h < 5 ? 'Late one' : h < 12 ? 'Morning' : h < 18 ? 'Afternoon' : 'Evening';
+    dateEl.textContent = `${part}, Rob · ${d.toLocaleDateString('en-GB', {weekday:'long', day:'numeric', month:'long'})}`;
+  };
+  tick();
+  setInterval(tick, 20000);
+}
+</script>
+</body>
+</html>
