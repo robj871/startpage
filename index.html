@@ -38,11 +38,11 @@ body,html{transition:background-color 2s}
 .contours{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
 .contours path{fill:none;stroke:var(--line);stroke-width:1.2}
 main{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:calc(env(safe-area-inset-top) + clamp(32px,7vw,72px)) max(5vw,20px,env(safe-area-inset-right)) calc(env(safe-area-inset-bottom) + 56px) max(5vw,20px,env(safe-area-inset-left))}
-header{margin-bottom:clamp(30px,6vw,52px);text-shadow:0 1px 14px rgba(70,25,40,.18)}
-.date{font-size:15px;font-weight:600;opacity:.85}
+header{margin-bottom:clamp(30px,6vw,52px);text-shadow:0 1px 14px rgba(70,25,40,.35)}
+.date{font-size:15px;font-weight:700}
 .time{font-size:clamp(68px,15vw,112px);font-weight:200;line-height:1;letter-spacing:-.03em;margin-top:4px;font-variant-numeric:tabular-nums}
 section+section{margin-top:clamp(28px,5vw,40px)}
-h2{font-size:14px;font-weight:700;margin:0 0 16px 4px;opacity:.7}
+h2{font-size:14px;font-weight:800;margin:0 0 16px 4px;opacity:.92;text-shadow:0 1px 8px rgba(60,20,35,.35)}
 .grid{list-style:none;margin:0;padding:0;display:grid;gap:22px 12px;grid-template-columns:repeat(5,minmax(0,1fr))}
 @media(max-width:440px){main{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}.grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:20px 6px}.name{font-size:12.5px;white-space:nowrap;width:max-content}}
 .tile{display:flex;flex-direction:column;align-items:center;gap:9px;color:var(--ink);text-decoration:none;
@@ -104,7 +104,7 @@ h2{font-size:14px;font-weight:700;margin:0 0 16px 4px;opacity:.7}
     community: [
       {n:'EtcetEra', u:'https://www.resetera.com/forums/etcetera-forum.9/', c:'#7b5bb4', i:'chat'},
       {n:'Gaming', u:'https://www.resetera.com/forums/gaming-forum.7/', c:'#5f4aa6', i:'pad'},
-      {n:'Pie & Bovril', u:'https://www.pieandbovril.com/forum/index.php?/forum/50-the-general-nonsense-forum/', c:'#22386e', i:'pb'},
+      {n:'Pie & Bovril', u:'https://www.pieandbovril.com/forum/index.php?/forum/50-the-general-nonsense-forum/', c:'#163a8c', i:'pb'},
       {n:'The Shed', u:'https://www.hmfckickback.co.uk/index.php?/forum/2-the-shed/', c:'#6e2a31', x:'stripe', g:'#f3e6cf', i:'shed'},
       {n:'The Terrace', u:'https://www.hmfckickback.co.uk/index.php?/forum/1-the-terrace/', c:'#6e2a31', x:'stripe', g:'#f3e6cf', i:'terrace'}
     ],
@@ -132,9 +132,9 @@ h2{font-size:14px;font-weight:700;margin:0 0 16px 4px;opacity:.7}
   const STOPS = [ // hour, peach, rose, lavender
     [0,  '#4a3350','#30264a','#1b1832'],
     [5,  '#5e3d55','#3a2b4f','#1f1b38'],
-    [7,  '#e59a6c','#c97a72','#94688a'],
-    [11, '#e8a688','#c98b8f','#93759f'],
-    [15, '#e8ab8e','#c38f9d','#8f78a8'],
+    [7,  '#d98c62','#b86d6c','#865d83'],
+    [11, '#d8957a','#b27a86','#836893'],
+    [15, '#d29683','#a97890','#7a6698'],
     [18, '#c07a78','#845479','#4d3a68'],
     [21, '#7a4a5e','#4a3158','#262040'],
     [24, '#4a3350','#30264a','#1b1832']
