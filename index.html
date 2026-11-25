@@ -23,7 +23,7 @@ LAYOUT: date, thin clock, then Community and Daily groups; up to 5 across.
 */
 :root{color-scheme:light dark;
   --peach:light-dark(#e8ab8e,#8d5a55);--rose:light-dark(#c38f9d,#634560);--lav:light-dark(#8f78a8,#372b4f);
-  --line:light-dark(rgba(120,55,60,.16),rgba(255,210,200,.09));--ink:#fff}
+  --line:rgba(255,255,255,.11);--ink:#fff}
 :root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box;min-width:0}
 body{margin:0;color:var(--ink);font:16px/1.4 Nunito,ui-rounded,system-ui,sans-serif;overflow-x:clip;min-height:100vh;
@@ -31,7 +31,10 @@ body{margin:0;color:var(--ink);font:16px/1.4 Nunito,ui-rounded,system-ui,sans-se
              radial-gradient(90% 80% at 100% 100%,var(--lav),transparent 66%),
              linear-gradient(165deg,var(--peach),var(--rose) 48%,var(--lav));
 }
-html{background:#c38f9d}
+html{background:var(--rose)}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.09;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+body,html{transition:background-color 2s}
 .contours{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
 .contours path{fill:none;stroke:var(--line);stroke-width:1.2}
 main{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:calc(env(safe-area-inset-top) + clamp(32px,7vw,72px)) max(5vw,20px,env(safe-area-inset-right)) calc(env(safe-area-inset-bottom) + 56px) max(5vw,20px,env(safe-area-inset-left))}
@@ -41,7 +44,7 @@ header{margin-bottom:clamp(30px,6vw,52px);text-shadow:0 1px 14px rgba(70,25,40,.
 section+section{margin-top:clamp(28px,5vw,40px)}
 h2{font-size:14px;font-weight:700;margin:0 0 16px 4px;opacity:.7}
 .grid{list-style:none;margin:0;padding:0;display:grid;gap:22px 12px;grid-template-columns:repeat(5,minmax(0,1fr))}
-@media(max-width:440px){.grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:20px 8px}}
+@media(max-width:440px){main{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}.grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:20px 6px}.name{font-size:12.5px;white-space:nowrap;width:max-content}}
 .tile{display:flex;flex-direction:column;align-items:center;gap:9px;color:var(--ink);text-decoration:none;
   -webkit-tap-highlight-color:transparent;outline:none;border-radius:18px;padding:4px}
 .tile:focus-visible{box-shadow:0 0 0 2px rgba(255,255,255,.75)}
@@ -101,7 +104,7 @@ h2{font-size:14px;font-weight:700;margin:0 0 16px 4px;opacity:.7}
     community: [
       {n:'EtcetEra', u:'https://www.resetera.com/forums/etcetera-forum.9/', c:'#7b5bb4', i:'chat'},
       {n:'Gaming', u:'https://www.resetera.com/forums/gaming-forum.7/', c:'#5f4aa6', i:'pad'},
-      {n:'Pie & Bovril', u:'https://www.pieandbovril.com/forum/index.php?/forum/50-the-general-nonsense-forum/', c:'#24468c', x:'navy', i:'pb'},
+      {n:'Pie & Bovril', u:'https://www.pieandbovril.com/forum/index.php?/forum/50-the-general-nonsense-forum/', c:'#22386e', i:'pb'},
       {n:'The Shed', u:'https://www.hmfckickback.co.uk/index.php?/forum/2-the-shed/', c:'#6e2a31', x:'stripe', g:'#f3e6cf', i:'shed'},
       {n:'The Terrace', u:'https://www.hmfckickback.co.uk/index.php?/forum/1-the-terrace/', c:'#6e2a31', x:'stripe', g:'#f3e6cf', i:'terrace'}
     ],
@@ -126,8 +129,27 @@ h2{font-size:14px;font-weight:700;margin:0 0 16px 4px;opacity:.7}
     const part = h < 5 ? 'Late one' : h < 12 ? 'Morning' : h < 18 ? 'Afternoon' : 'Evening';
     dateEl.textContent = `${part}, Rob · ${d.toLocaleDateString('en-GB', {weekday:'long', day:'numeric', month:'long'})}`;
   };
-  tick();
-  setInterval(tick, 20000);
+  const STOPS = [ // hour, peach, rose, lavender
+    [0,  '#4a3350','#30264a','#1b1832'],
+    [5,  '#5e3d55','#3a2b4f','#1f1b38'],
+    [7,  '#e59a6c','#c97a72','#94688a'],
+    [11, '#e8a688','#c98b8f','#93759f'],
+    [15, '#e8ab8e','#c38f9d','#8f78a8'],
+    [18, '#c07a78','#845479','#4d3a68'],
+    [21, '#7a4a5e','#4a3158','#262040'],
+    [24, '#4a3350','#30264a','#1b1832']
+  ];
+  const hex = h => [1,3,5].map(i => parseInt(h.slice(i,i+2),16));
+  const mix = (a,b,t) => { const A=hex(a),B=hex(b); return 'rgb(' + A.map((v,i)=>Math.round(v+(B[i]-v)*t)).join(',') + ')'; };
+  const root = document.documentElement;
+  const paint = () => {
+    const d = new Date(), h = d.getHours() + d.getMinutes()/60;
+    let i = 0; while (STOPS[i+1][0] <= h) i++;
+    const [h0,...a] = STOPS[i], [h1,...b] = STOPS[i+1], t = (h-h0)/(h1-h0);
+    ['--peach','--rose','--lav'].forEach((v,k) => root.style.setProperty(v, mix(a[k], b[k], t)));
+  };
+  tick(); paint();
+  setInterval(() => { tick(); paint(); }, 20000);
 }
 </script>
 </body>
